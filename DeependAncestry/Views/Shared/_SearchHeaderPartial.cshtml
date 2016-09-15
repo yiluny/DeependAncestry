@@ -1,5 +1,5 @@
 ﻿@{
-    var pageName = ViewContext.RouteData.Values["controller"].ToString();
+    var pageName = ViewContext.RouteData.Values["action"].ToString();
 }
 
 <h2 class="global-title">Deepend<strong>Ancestry</strong></h2>
@@ -21,7 +21,7 @@
         </div>
 
         @{
-            if (pageName.ToLower().Equals("advancedsearch"))
+            if (pageName.ToLower().Equals("advanced"))
             {
                 <div class="form-group">
                     Direction:
@@ -37,12 +37,12 @@
     </div>
     <div class="col-md-6">
         <button type="button" class="btn btn-block btn-info">
-            @(pageName.ToLower().Equals("advancedsearch") ? "Advanced Search" : "Search")
+            @(pageName.ToLower().Equals("advanced") ? "Advanced Search" : "Search")
         </button>
         @{
-            if (!pageName.ToLower().Equals("advancedsearch"))
+            if (!pageName.ToLower().Equals("advanced"))
             {
-                <i class="btn btn-block">@Html.ActionLink("Advanced search", "Index", "AdvancedSearch")</i>
+                <i class="btn btn-block">@Html.ActionLink("Advanced search", "advanced", "Home")</i>
             }
         }
     </div>

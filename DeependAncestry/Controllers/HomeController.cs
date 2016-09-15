@@ -12,5 +12,10 @@ namespace DeependAncestry.Controllers
         {
             return View();
         }
+
+        public ActionResult Advanced()
+        {
+            return View();
+        }
     }
 }

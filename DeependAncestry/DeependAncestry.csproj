@@ -108,7 +108,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AdvancedSearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -152,7 +151,7 @@
     <Content Include="Views\Shared\_ResultsGridPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\AdvancedSearch\Index.cshtml" />
+    <Content Include="Views\Home\Advanced.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
