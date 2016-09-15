@@ -1,0 +1,49 @@
+﻿@{
+    var pageName = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+<h2 class="global-title">Deepend<strong>Ancestry</strong></h2>
+
+<form role="form">
+    <div class="col-md-6">
+        <div class="form-group">
+            <input type="text" class="form-control" id="SearchedText" />
+        </div>
+
+        <div class="form-group">
+            Gender:
+            <div class="checkbox-inline">
+                <label><input type="checkbox" value="male">Male</label>
+            </div>
+            <div class="checkbox-inline">
+                <label><input type="checkbox" value="female">Female</label>
+            </div>
+        </div>
+
+        @{
+            if (pageName.ToLower().Equals("advancedsearch"))
+            {
+                <div class="form-group">
+                    Direction:
+                    <div class="radio-inline">
+                        <label><input type="radio" name="direction">Ancestors</label>
+                    </div>
+                    <div class="radio-inline">
+                        <label><input type="radio" name="direction">Descendants</label>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="col-md-6">
+        <button type="button" class="btn btn-block btn-info">
+            @(pageName.ToLower().Equals("advancedsearch") ? "Advanced Search" : "Search")
+        </button>
+        @{
+            if (!pageName.ToLower().Equals("advancedsearch"))
+            {
+                <i class="btn btn-block">@Html.ActionLink("Advanced search", "Index", "AdvancedSearch")</i>
+            }
+        }
+    </div>
+</form>
