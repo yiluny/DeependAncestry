@@ -1,7 +1,18 @@
 ﻿var CensusSearchAPI = (function () {
+    var itemPerPage = 10;
+    var pageIndex = 0;
+    var totalCount = 0;
+
+    //Pagination
+    var loadPage = function (isNext) {
+        if (isNext) pageIndex++;
+        else pageIndex--;
+
+        loadCensusData();
+    }
+
+    //load data from api
     var loadCensusData = function () {
-        var itemPerPage = 10;
-        var pageNumber = 0;
         var gender = "all";
         var family = "null";
 
@@ -22,17 +33,21 @@
         }
 
         $.ajax({
-            url: "/api/search/search/" + keyword + "/" + gender + "/" + family + "/" + pageNumber + "/"+ itemPerPage,
+            url: "/api/search/search/" + keyword + "/" + gender + "/" + family + "/" + pageIndex + "/" + itemPerPage,
             jsonp: "callback",
             dataType: "json",
             success: function (data) {
-                //var template = $('#template').html();
-                //Mustache.parse(template);
-                //var rendered = Mustache.render(template, data);
-                //$('.news-list .news-posts').append(rendered);
-                //$("#result-list").load("/home/DisplayResultPartialView", { People: data.Results })
                 if (data.Results.length > 0) {
                     $("#people-result").empty();
+
+                    totalCount = data.TotalCount;
+
+                    //Check if show or hide the pagination buttons
+                    if ((pageIndex + 1) * itemPerPage < totalCount) $("#nxt-page-btn").show();
+                    else $("#nxt-page-btn").hide();
+                    if (pageIndex == 0) $("#pre-page-btn").hide();
+                    else $("#pre-page-btn").show();
+
                     data.Results.forEach(function (person) {
                         $("#people-result").append(
                             '<tr><td>' + person.ID + '</td><td>' + person.Name + '</td><td>' + person.Gender + '</td><td>' + person.BirthPlace + '</td></tr>');
@@ -40,11 +55,11 @@
                 }
             }
         });
-
     }
 
     // Public API
     return {
-        loadCensusData: loadCensusData
+        loadCensusData: loadCensusData,
+        loadPage: loadPage
     };
 })();
