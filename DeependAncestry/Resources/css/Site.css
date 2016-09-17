@@ -1,0 +1,17 @@
+﻿.main {
+    margin-top: 5%;
+}
+
+.global-title {
+    margin-bottom: 40px;
+}
+
+#pre-page-btn {
+    float: left;
+    display:none;
+}
+
+#nxt-page-btn {
+    float: right;
+    display:none;
+}

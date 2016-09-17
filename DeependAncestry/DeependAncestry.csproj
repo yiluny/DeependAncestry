@@ -154,7 +154,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\css\Site.less" />
+    <Content Include="Resources\css\Site.css" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_ResultsGridPartial.cshtml" />
