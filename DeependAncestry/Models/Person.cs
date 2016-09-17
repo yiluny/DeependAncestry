@@ -20,13 +20,13 @@ namespace DeependAncestry.Models
         [JsonProperty(PropertyName = "father_id")]
         public int? FatherId { get; set; }
 
-        [JsonProperty(PropertyName = "monther_id")]
-        public int? MontherId { get; set; }
+        [JsonProperty(PropertyName = "mother_id")]
+        public int? MotherId { get; set; }
 
         [JsonProperty(PropertyName = "place_id")]
         public int? PlaceId { get; set; }
 
         [JsonProperty(PropertyName = "level")]
-        public int? Level { get; set; }
+        public int Level { get; set; }
     }
 }

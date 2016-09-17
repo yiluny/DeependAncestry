@@ -1,0 +1,15 @@
+﻿namespace DeependAncestry.ViewModels
+{
+    public class PersonViewModel
+    {
+        public int ID { get; set; }
+
+        public string Name { get; set; }
+
+        public string Gender { get; set; }
+
+        public string BirthPlace { get; set; }
+
+        public int Level { get; set; }
+    }
+}

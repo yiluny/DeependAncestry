@@ -121,6 +121,7 @@
     <Compile Include="Models\Request\SearchedRequest.cs" />
     <Compile Include="Models\Response\SearchedResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\PersonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

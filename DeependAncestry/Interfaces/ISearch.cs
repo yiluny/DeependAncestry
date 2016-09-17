@@ -8,6 +8,6 @@ namespace DeependAncestry.Interfaces
 {
     public interface ISearch <T,R>
     {
-        R GetSearchResultByName(T req);
+        R GetSearchResult(T req);
     }
 }

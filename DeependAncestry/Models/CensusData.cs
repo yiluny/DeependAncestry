@@ -6,9 +6,9 @@ namespace DeependAncestry.Models
     public class CensusData
     {
         [JsonProperty(PropertyName = "people")]
-        public List<Person> People { get; set; }
+        public HashSet<Person> People { get; set; }
 
         [JsonProperty(PropertyName = "places")]
-        public List<Place> Places { get; set; }
+        public HashSet<Place> Places { get; set; }
     }
 }

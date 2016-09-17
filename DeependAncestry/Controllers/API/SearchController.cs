@@ -12,7 +12,7 @@ namespace DeependAncestry.Controllers.API
         public SearchedResponse Search(SearchedRequest req)
         {
             ISearch<SearchedRequest, SearchedResponse> searchFactory = new CensusSearchFactory();
-            SearchedResponse res = searchFactory.GetSearchResultByName(req);
+            SearchedResponse res = searchFactory.GetSearchResult(req);
             return res;
         }
     }

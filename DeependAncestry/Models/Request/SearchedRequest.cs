@@ -11,5 +11,6 @@
         public int PageIndex { get; set; }
 
         public int ItemPerPage { get; set; }
+
     }
 }
