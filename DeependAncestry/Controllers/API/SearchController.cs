@@ -1,5 +1,7 @@
-﻿using DeependAncestry.Models.Request;
-using DeependAncestry.Models.Result;
+﻿using DeependAncestry.Factories;
+using DeependAncestry.Interfaces;
+using DeependAncestry.Models.Request;
+using DeependAncestry.Models.Response;
 using System.Web.Http;
 
 namespace DeependAncestry.Controllers.API
@@ -7,9 +9,11 @@ namespace DeependAncestry.Controllers.API
     public class SearchController : ApiController
     {
         // POST api/search/
-        public SearchedResult Search(SearchedRequest req)
+        public SearchedResponse Search(SearchedRequest req)
         {
-            return null;
+            ISearch<SearchedRequest, SearchedResponse> searchFactory = new CensusSearch();
+            SearchedResponse res = searchFactory.GetSearchResultByName(req);
+            return res;
         }
     }
 }
