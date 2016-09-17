@@ -24,3 +24,6 @@ bld/
 
 # Test Resource
 [Tt]est/
+
+# Configurations
+DeependAncestry/Web.Debug.config
