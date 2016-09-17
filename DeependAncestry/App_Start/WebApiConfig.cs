@@ -14,6 +14,12 @@ namespace DeependAncestry
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Routes.MapHttpRoute(
+                name: "SearchPostApi",
+                routeTemplate: "api/search",
+                defaults: new { controller = "Search" }
+            );
         }
     }
 }
