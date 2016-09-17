@@ -115,7 +115,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Interfaces\ISearch.cs" />
+    <Compile Include="Models\CensusData.cs" />
     <Compile Include="Models\Person.cs" />
+    <Compile Include="Models\Place.cs" />
     <Compile Include="Models\Request\SearchedRequest.cs" />
     <Compile Include="Models\Response\SearchedResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
