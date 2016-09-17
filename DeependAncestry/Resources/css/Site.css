@@ -9,9 +9,11 @@
 #pre-page-btn {
     float: left;
     display:none;
+    text-decoration:none;
 }
 
 #nxt-page-btn {
     float: right;
     display:none;
+    text-decoration:none;
 }

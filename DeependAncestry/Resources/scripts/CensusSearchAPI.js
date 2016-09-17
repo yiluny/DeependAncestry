@@ -8,13 +8,14 @@
         if (isNext) pageIndex++;
         else pageIndex--;
 
-        loadCensusData();
+        loadCensusData(false);
     }
 
     //load data from api
-    var loadCensusData = function () {
+    var loadCensusData = function (isReload) {
         var gender = "all";
         var family = "null";
+        if (isReload) pageIndex = 0;
 
         var keyword = document.getElementById("searched-text").value;
         var maleCheckBox = document.getElementById("male-checkox").checked;
