@@ -7,16 +7,16 @@
 <form role="form">
     <div class="col-md-6">
         <div class="form-group">
-            <input type="text" class="form-control" id="SearchedText" />
+            <input type="text" class="form-control" id="searched-text" />
         </div>
 
         <div class="form-group">
             Gender:
             <div class="checkbox-inline">
-                <label><input type="checkbox" value="male">Male</label>
+                <label><input type="checkbox" id="male-checkox" value="m">Male</label>
             </div>
             <div class="checkbox-inline">
-                <label><input type="checkbox" value="female">Female</label>
+                <label><input type="checkbox" id="female-checkox" value="f">Female</label>
             </div>
         </div>
 
@@ -26,17 +26,17 @@
                 <div class="form-group">
                     Direction:
                     <div class="radio-inline">
-                        <label><input type="radio" name="direction">Ancestors</label>
+                        <label><input type="radio" value="ancestors" name="family">Ancestors</label>
                     </div>
                     <div class="radio-inline">
-                        <label><input type="radio" name="direction">Descendants</label>
+                        <label><input type="radio" value="descendants" name="family">Descendants</label>
                     </div>
                 </div>
             }
         }
     </div>
     <div class="col-md-6">
-        <button type="button" class="btn btn-block btn-info">
+        <button type="button" class="btn btn-block btn-info" onclick="CensusSearchAPI.loadCensusData()">
             @(pageName.ToLower().Equals("advanced") ? "Advanced Search" : "Search")
         </button>
         @{
