@@ -11,7 +11,7 @@ namespace DeependAncestry.Controllers.API
         // POST api/search/
         public SearchedResponse Search(SearchedRequest req)
         {
-            ISearch<SearchedRequest, SearchedResponse> searchFactory = new CensusSearch();
+            ISearch<SearchedRequest, SearchedResponse> searchFactory = new CensusSearchFactory();
             SearchedResponse res = searchFactory.GetSearchResultByName(req);
             return res;
         }
