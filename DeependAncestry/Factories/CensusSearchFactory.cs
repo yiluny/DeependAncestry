@@ -43,7 +43,7 @@ namespace DeependAncestry.Factories
 
             if (req.Family.ToLower() == "descendants")
             {
-                query = query.SelectMany(p => getChildrenById(p.ID, p.Gender, p.Level, new List<Person>(), data.People));
+                query = query.SelectMany(p => getChildrenById(p.ID, p.Level, new List<Person>(), data.People));
             }
 
             List<PersonViewModel> vmPeople = query.Join(data.Places,
@@ -121,7 +121,7 @@ namespace DeependAncestry.Factories
         /// <param name="currentFamilies">Current family members found for current person</param>
         /// <param name="data">Total data set</param>
         /// <returns>Totle family members found</returns>
-        private List<Person> getChildrenById(int personId, string gender, int lvl, List<Person> currentFamilies, IEnumerable<Person> data)
+        private List<Person> getChildrenById(int personId, int lvl, List<Person> currentFamilies, IEnumerable<Person> data)
         {
             List<Person> families = currentFamilies;
 
@@ -135,7 +135,7 @@ namespace DeependAncestry.Factories
                 foreach (var member in familyLookups)
                 {
 
-                    families = getChildrenById(member.ID, member.Gender, member.Level, families, data);
+                    families = getChildrenById(member.ID, member.Level, families, data);
                 }
 
             }
