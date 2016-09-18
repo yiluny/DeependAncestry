@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Web;
 
 namespace DeependAncestry.Factories
 {
@@ -49,7 +50,7 @@ namespace DeependAncestry.Factories
                 people => people.PlaceId,
                 place => place.Id,
                 (people, place) => new PersonViewModel() { ID = people.ID, Name = people.Name, Gender = people.Gender, BirthPlace = place.Name, Level = people.Level })
-                .OrderBy(p => p.Level).ToList();
+                .OrderBy(p => p.Level).ThenBy(p=>p.ID).ToList();
 
             if (vmPeople != null && vmPeople.Count > 0)
             {
@@ -65,12 +66,21 @@ namespace DeependAncestry.Factories
         /// <returns>Census data</returns>
         private CensusData getCensusDataFromJson()
         {
-            using (StreamReader sr = new StreamReader(jsonFilePath))
+            try
             {
-                string jsonStr = sr.ReadToEnd();
-                CensusData censusData = JsonConvert.DeserializeObject<CensusData>(jsonStr);
-                return censusData;
+                string serverFilePath = HttpContext.Current.Server.MapPath(jsonFilePath);
+                using (StreamReader sr = new StreamReader(serverFilePath))
+                {
+                    string jsonStr = sr.ReadToEnd();
+                    CensusData censusData = JsonConvert.DeserializeObject<CensusData>(jsonStr);
+                    return censusData;
+                }
             }
+            catch (Exception ex)
+            {
+                var exc = ex;
+            }
+            return null;
         }
 
         /// <summary>
@@ -91,12 +101,12 @@ namespace DeependAncestry.Factories
             {
                 families.Add(familyLookup);
 
-                if (familyLookup.MotherId != null)
+                if (familyLookup.MotherId != null && !families.Any(m => m.ID == familyLookup.MotherId))
                 {
                     families = getParentsById(familyLookup.MotherId.Value, familyLookup.Level, families, data);
                 }
 
-                if (familyLookup.FatherId != null)
+                if (familyLookup.FatherId != null && !families.Any(m => m.ID == familyLookup.FatherId))
                 {
                     families = getParentsById(familyLookup.FatherId.Value, familyLookup.Level, families, data);
                 }
@@ -117,14 +127,18 @@ namespace DeependAncestry.Factories
 
             data = data.Where(p => p.Level >= lvl); // find only decendents
             List<Person> familyLookups = data.Where(p => p.FatherId == personId || p.MotherId == personId).ToList();
-            
-            families.AddRange(familyLookups);
 
-            foreach (var member in familyLookups)
+            if (familyLookups != null && familyLookups.Count > 0 && !families.Contains(familyLookups.First()))
             {
-                families = getChildrenById(member.ID, member.Gender, member.Level, families, data);
-            }
+                families.AddRange(familyLookups);
 
+                foreach (var member in familyLookups)
+                {
+
+                    families = getChildrenById(member.ID, member.Gender, member.Level, families, data);
+                }
+
+            }
             return families;
         }
     }

@@ -27,9 +27,11 @@
             if (femaleCheckBox) gender = "f";
         }
 
-        for (i = 0; i < familyOptionRadioSelections.length; i++) {
-            if (familyOptionRadioSelections[i].checked) {
-                family = familyOptionRadioSelections[i].value;
+        if (familyOptionRadioSelections && familyOptionRadioSelections.length) {
+            for (i = 0; i < familyOptionRadioSelections.length; i++) {
+                if (familyOptionRadioSelections[i].checked) {
+                    family = familyOptionRadioSelections[i].value;
+                }
             }
         }
 
@@ -38,8 +40,8 @@
             jsonp: "callback",
             dataType: "json",
             success: function (data) {
-                if (data.Results.length > 0) {
-                    $("#people-result").empty();
+                $("#people-result").empty();
+                if (data.Results && data.Results.length && data.Results.length > 0) {
 
                     totalCount = data.TotalCount;
 

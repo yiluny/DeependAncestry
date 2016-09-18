@@ -128,8 +128,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Resources\css\bootstrap.3.3.7.min.css" />
     <Content Include="Resources\scripts\CensusSearchAPI.js" />
-    <Content Include="Web.config" />
+    <Content Include="Resources\scripts\jquery-3.1.0.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -161,6 +165,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Advanced.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CensusData\data_large.json" />
+    <Content Include="CensusData\data_small.json" />
+    <None Include="Properties\PublishProfiles\DeependAncestry.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
