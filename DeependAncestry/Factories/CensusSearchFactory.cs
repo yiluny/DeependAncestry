@@ -87,18 +87,21 @@ namespace DeependAncestry.Factories
             data = data.Where(p => p.Level <= lvl); // find only ancestors
 
             Person familyLookup = data.SingleOrDefault(p => p.ID == personId);
-            families.Add(familyLookup);
-
-            if (familyLookup.MotherId != null)
+            if (familyLookup != null)
             {
-                families = getParentsById(familyLookup.MotherId.Value, familyLookup.Level, families, data);
-            }
+                families.Add(familyLookup);
 
-            if (familyLookup.FatherId != null)
-            {
-                families = getParentsById(familyLookup.FatherId.Value, familyLookup.Level, families, data);
+                if (familyLookup.MotherId != null)
+                {
+                    families = getParentsById(familyLookup.MotherId.Value, familyLookup.Level, families, data);
+                }
+
+                if (familyLookup.FatherId != null)
+                {
+                    families = getParentsById(familyLookup.FatherId.Value, familyLookup.Level, families, data);
+                }
             }
-            return families;
+                return families;
         }
 
         /// <summary>
@@ -113,14 +116,6 @@ namespace DeependAncestry.Factories
             List<Person> families = currentFamilies;
 
             data = data.Where(p => p.Level >= lvl); // find only decendents
-            Person person = new Person()
-            {
-                ID = personId,
-            };
-            //CoordinatesBasedComparer c = new CoordinatesBasedComparer();
-            //data.ToList().Sort(c);
-            //int index = data.ToList().BinarySearch(person, c);
-            //List<Person> familyLookups = data.ToList().BinarySearchMultiple(person, (a, b) => a.FatherId.Value.CompareTo(b.ID));
             List<Person> familyLookups = data.Where(p => p.FatherId == personId || p.MotherId == personId).ToList();
             
             families.AddRange(familyLookups);
@@ -129,96 +124,8 @@ namespace DeependAncestry.Factories
             {
                 families = getChildrenById(member.ID, member.Gender, member.Level, families, data);
             }
+
             return families;
         }
-    }
-}
-
-//public class CoordinatesBasedComparer : IComparer<Person>
-//{
-//    public int Compare(Person person, int personId)
-//    {
-//        if (person.FatherId.Value.CompareTo(personId) != 0)
-//        {
-//            return person.FatherId.Value.CompareTo(personId);
-//        }
-//        else if (person.MotherId.Value.CompareTo(personId) != 0)
-//        {
-//            return person.MotherId.Value.CompareTo(personId);
-//        }
-//        else
-//        {
-//            return 0;
-//        }
-//    }
-//}
-
-public static class ListExtensions
-{
-    public static int BinarySearch<T>(this List<T> list,
-                                     T item,
-                                     Func<T, T, int> compare)
-    {
-        return list.BinarySearch(item, new ComparisonComparer<T>(compare));
-    }
-
-    public static T BinarySearchOrDefault<T>(this List<T> list,
-                                         T item,
-                                         Func<T, T, int> compare)
-    {
-        int i = list.BinarySearch(item, compare);
-        if (i >= 0)
-            return list[i];
-        return default(T);
-    }
-    public static List<T> BinarySearchMultiple<T>(this List<T> list,
-                                                T item,
-                                                Func<T, T, int> compare)
-    {
-        var results = new List<T>();
-        int i = list.BinarySearch(item, compare);
-        if (i >= 0)
-        {
-            results.Add(list[i]);
-            int below = i;
-            while (--below >= 0)
-            {
-                int belowIndex = compare(list[below], item);
-                if (belowIndex < 0)
-                    break;
-                results.Add(list[belowIndex]);
-            }
-
-            int above = i;
-            while (++above < list.Count)
-            {
-                int aboveIndex = compare(list[above], item);
-                if (aboveIndex > 0)
-                    break;
-                results.Add(list[aboveIndex]);
-            }
-        }
-        return results;
-    }
-}
-
-
-
-public class ComparisonComparer<T> : IComparer<T>
-{
-    private readonly Comparison<T> comparison;
-
-    public ComparisonComparer(Func<T, T, int> compare)
-    {
-        if (compare == null)
-        {
-            throw new ArgumentNullException("comparison");
-        }
-        comparison = new Comparison<T>(compare);
-    }
-
-    public int Compare(T x, T y)
-    {
-        return comparison(x, y);
     }
 }
